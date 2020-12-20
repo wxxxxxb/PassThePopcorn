@@ -38,32 +38,17 @@ class Api {
   }
 
   async getTorrentInfoById(torrentId: number): Promise<any> {
-    let response
-    try {
-      response = ((await this.connection.getJSON('torrents.php', {
-        searchParams: {
-          torrentid: torrentId,
-        },
-      })) as unknown) as TorrentSearchResult
-    } catch (err) {
-      // if id is not found, ptp gives a 403
-      // we do an extra check for the body to make sure it's not the credentials
-      if (
-        err.response &&
-        err.response.statusCode === 403 &&
-        err.response.body ===
-          'This page is not allowed to be accessed by the API\n'
-      ) {
-        return false
-      }
-      throw err
+    const response = ((await this.connection.getJSON('torrents.php', {
+      searchParams: {
+        id: torrentId,
+      },
+    })) as unknown) as TorrentSearchResult
+
+    if (!response.Torrents || response.Torrents.length === 0) {
+      return undefined
     }
 
-    console.log(response)
-    const torrentData = response.Torrents.find(
-      ({ Id }) => Number(Id) === torrentId,
-    )
-    return new Torrent(Number(response.GroupId), torrentData)
+    return new Torrent(Number(response.GroupId), response.Torrents[0])
   }
 
   async getDescriptionForTorrent(torrent: Torrent): Promise<string> {
