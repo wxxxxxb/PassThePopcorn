@@ -1,4 +1,8 @@
-import got, { Got, OptionsOfJSONResponseBody } from 'got'
+import got, {
+  Got,
+  OptionsOfJSONResponseBody,
+  OptionsOfBufferResponseBody,
+} from 'got'
 
 class Connection {
   client: Got
@@ -51,6 +55,15 @@ class Connection {
 
     options.responseType = 'json'
     return (await this.client.get(url, options)).body as Record<string, unknown>
+  }
+
+  public async getBuffer(
+    url: string,
+    options: OptionsOfBufferResponseBody = { responseType: 'buffer' },
+  ): Promise<Buffer> {
+    this.consumeToken()
+    options.responseType = 'buffer'
+    return (await this.client.get(url, options)).body
   }
 }
 

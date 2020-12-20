@@ -42,6 +42,14 @@ class Api {
     })
     return response.Description as string
   }
+
+  async downloadTorrent(torrentId: number): Promise<Buffer> {
+    const response = (await this.connection.getBuffer('torrents.php', {
+      searchParams: { id: torrentId, action: 'download' },
+      responseType: 'buffer',
+    })) as Buffer
+    return response
+  }
 }
 
 export default Api
