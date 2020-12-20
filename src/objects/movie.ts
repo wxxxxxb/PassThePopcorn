@@ -23,7 +23,7 @@ class Movie {
     this.year = movieData.Year
     this.cover = movieData.Cover
     this.tags = movieData.Tags
-    this.directors = movieData.Directors.map(
+    this.directors = movieData.Directors?.map(
       (director: Record<string, string>) => new Director(director),
     )
     this.imdbId = `tt${movieData.ImdbId}`
@@ -32,7 +32,7 @@ class Movie {
     this.totalSnatched = movieData.TotalSnatched
     this.maxSize = movieData.MaxSize
     this.lastUploadDate = new Date(movieData.LastUploadTime)
-    this.torrents = movieData.Torrents.map(
+    this.torrents = movieData.Torrents?.map(
       (torrent: Record<string, any>) => new Torrent(this.id, torrent),
     )
   }

@@ -32,10 +32,10 @@ class Torrent {
     this.resolution = torrentData.Resolution
     this.quality = torrentData.Quality
     this.uploadTime = new Date(torrentData.UploadTime)
-    this.trumpable = torrentData.Trumpable.map(
+    this.trumpable = torrentData.Trumpable?.map(
       (trumpable: Record<string, string>) => new Trumpable(trumpable),
     )
-    this.reports = torrentData.Reports.map(
+    this.reports = torrentData.Reports?.map(
       (reports: Record<string, string>) => new Report(reports),
     )
   }
