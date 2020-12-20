@@ -40,7 +40,6 @@ class Api {
         action: 'description',
       },
     })
-    console.log(response)
     return response.Description as string
   }
 }
