@@ -37,7 +37,7 @@ class Api {
     return (await this.search(id))[0]
   }
 
-  async getTorrentInfo(torrentId: number): Promise<any> {
+  async getTorrentInfoById(torrentId: number): Promise<any> {
     let response
     try {
       response = ((await this.connection.getJSON('torrents.php', {
@@ -49,6 +49,7 @@ class Api {
       // if id is not found, ptp gives a 403
       // we do an extra check for the body to make sure it's not the credentials
       if (
+        err.response &&
         err.response.statusCode === 403 &&
         err.response.body ===
           'This page is not allowed to be accessed by the API\n'
