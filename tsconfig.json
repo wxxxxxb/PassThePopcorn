@@ -7,10 +7,11 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "baseUrl": ".",
     "declaration": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
-

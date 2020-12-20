@@ -1,15 +1,18 @@
 {
   "name": "passthepopcorn",
-  "version": "0.6.0",
+  "version": "0.6.3",
   "description": "",
   "author": "",
   "license": "ISC",
   "main": "./lib/api.js",
   "types": "./lib/api.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib",
-    "prepublish": "npm run clean && npm run build"
+    "prepare": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
