@@ -9,6 +9,8 @@ class Connection {
   capacity = 3
   tokens = 3
   fillPerSecond = 0.5
+  queue: { (value: true): void }[] = []
+  maxQueueSize = 15
 
   constructor(user: string, key: string) {
     this.client = got.extend({
@@ -27,6 +29,11 @@ class Connection {
     if (this.tokens < this.capacity) {
       this.tokens += 1
     }
+    if (this.queue.length > 0) {
+      const resolve = this.queue.pop()
+      this.tokens += 1
+      resolve(true)
+    }
   }
 
   private consumeToken() {
@@ -35,14 +42,24 @@ class Connection {
       return true
     }
 
-    throw Error('Ratelimit')
+    if (this.queue.length >= this.maxQueueSize) {
+      throw Error('Ratelimit')
+    }
+
+    let promiseResolve
+    const promise = new Promise((resolve) => {
+      promiseResolve = resolve
+    })
+
+    this.queue.push(promiseResolve)
+    return promise
   }
 
   public async get(
     url: string,
     options: OptionsOfJSONResponseBody = {},
   ): Promise<string> {
-    this.consumeToken()
+    await this.consumeToken()
 
     return (await this.client.get(url, options)).body as string
   }
@@ -51,7 +68,7 @@ class Connection {
     url: string,
     options: OptionsOfJSONResponseBody = {},
   ): Promise<Record<string, unknown>> {
-    this.consumeToken()
+    await this.consumeToken()
 
     options.responseType = 'json'
     return (await this.client.get(url, options)).body as Record<string, unknown>
@@ -61,7 +78,8 @@ class Connection {
     url: string,
     options: OptionsOfBufferResponseBody = { responseType: 'buffer' },
   ): Promise<Buffer> {
-    this.consumeToken()
+    await this.consumeToken()
+
     options.responseType = 'buffer'
     return (await this.client.get(url, options)).body
   }
