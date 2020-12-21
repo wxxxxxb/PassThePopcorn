@@ -37,7 +37,22 @@ class Api {
     return (await this.search(id))[0]
   }
 
-  async getTorrentInfoById(torrentId: number): Promise<any> {
+  async getMovieById(id: number): Promise<Movie> {
+    const response = await this.connection.getJSON('torrents.php', {
+      searchParams: { id },
+    })
+
+    if (response.Result !== 'OK') {
+      if (response.ResultDetails === 'No such group!') {
+        return undefined
+      }
+      throw Error(response.ResultDetails as string)
+    }
+
+    return new Movie(response)
+  }
+
+  async getTorrentById(torrentId: number): Promise<any> {
     let response
     try {
       response = ((await this.connection.getJSON('torrents.php', {
