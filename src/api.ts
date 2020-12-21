@@ -52,7 +52,7 @@ class Api {
     return new Movie(response)
   }
 
-  async getTorrentById(torrentId: number): Promise<any> {
+  async getTorrentById(torrentId: number): Promise<Torrent> {
     let response
     try {
       response = ((await this.connection.getJSON('torrents.php', {
@@ -69,7 +69,7 @@ class Api {
         err.response.body ===
           'This page is not allowed to be accessed by the API\n'
       ) {
-        return false
+        return undefined
       }
       throw err
     }
@@ -78,7 +78,7 @@ class Api {
       ({ Id }) => Number(Id) === torrentId,
     )
     if (!torrentData) {
-      return false
+      return undefined
     }
     return new Torrent(Number(response.GroupId), torrentData)
   }
