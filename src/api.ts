@@ -59,7 +59,6 @@ class Api {
       throw err
     }
 
-    console.log(response)
     const torrentData = response.Torrents.find(
       ({ Id }) => Number(Id) === torrentId,
     )
