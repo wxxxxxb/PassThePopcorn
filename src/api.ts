@@ -62,6 +62,9 @@ class Api {
     const torrentData = response.Torrents.find(
       ({ Id }) => Number(Id) === torrentId,
     )
+    if (!torrentData) {
+      return false
+    }
     return new Torrent(Number(response.GroupId), torrentData)
   }
 
