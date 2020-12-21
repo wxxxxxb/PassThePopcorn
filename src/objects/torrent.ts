@@ -25,7 +25,7 @@ class Torrent {
   reports: Report[]
 
   constructor(movieId: number, torrentData: Record<string, any>) {
-    this.id = torrentData.Id
+    this.id = Number(torrentData.Id)
     this.infoHash = torrentData.InfoHash
     this.movieId = movieId
     this.releaseName = torrentData.ReleaseName

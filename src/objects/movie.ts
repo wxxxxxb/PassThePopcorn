@@ -18,7 +18,7 @@ class Movie {
   torrents: Torrent[]
 
   constructor(movieData: Record<string, any>) {
-    this.id = movieData.GroupId
+    this.id = Number(movieData.GroupId)
     this.title = movieData.Title
     this.year = movieData.Year
     this.cover = movieData.Cover
