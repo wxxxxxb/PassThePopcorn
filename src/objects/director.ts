@@ -1,9 +1,9 @@
 class Director {
-  id: string
+  id: number
   name: string
 
   constructor(directorData: Record<string, string>) {
-    this.id = directorData.Id
+    this.id = Number(directorData.Id)
     this.name = directorData.Name
   }
 }
