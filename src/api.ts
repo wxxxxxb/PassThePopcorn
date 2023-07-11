@@ -104,3 +104,9 @@ class Api {
 }
 
 export default Api
+
+export { default as Movie } from './objects/movie'
+export { default as Torrent } from './objects/torrent'
+export { default as Director } from './objects/director'
+export { default as Report } from './objects/report'
+export { default as Trumpable } from './objects/trumpable'
