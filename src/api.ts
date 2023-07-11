@@ -25,9 +25,9 @@ class Api {
   }
 
   async search(query: string): Promise<Movie[]> {
-    const response = ((await this.connection.getJSON('torrents.php', {
+    const response = (await this.connection.getJSON('torrents.php', {
       searchParams: { searchstr: query, jsontrumpable: 1, jsonreports: 1 },
-    })) as unknown) as MovieSearchResult
+    })) as unknown as MovieSearchResult
     return response.Movies.map(
       (movieData: Record<string, unknown>) => new Movie(movieData),
     )
@@ -55,11 +55,11 @@ class Api {
   async getTorrentById(torrentId: number): Promise<Torrent> {
     let response
     try {
-      response = ((await this.connection.getJSON('torrents.php', {
+      response = (await this.connection.getJSON('torrents.php', {
         searchParams: {
           torrentid: torrentId,
         },
-      })) as unknown) as TorrentSearchResult
+      })) as unknown as TorrentSearchResult
     } catch (err) {
       // if id is not found, ptp gives a 403
       // we do an extra check for the body to make sure it's not the credentials
