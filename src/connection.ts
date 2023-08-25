@@ -30,8 +30,8 @@ class Connection {
       this.tokens += 1
     }
     if (this.queue.length > 0) {
-      const resolve = this.queue.pop()
-      this.tokens += 1
+      const resolve = this.queue.shift()
+      this.tokens -= 1
       resolve(true)
     }
   }
