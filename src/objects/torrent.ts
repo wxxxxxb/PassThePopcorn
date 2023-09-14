@@ -1,5 +1,5 @@
-import Report from './report'
-import Trumpable from './trumpable'
+import Report from './report.js'
+import Trumpable from './trumpable.js'
 
 class Torrent {
   id: number

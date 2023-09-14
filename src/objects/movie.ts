@@ -1,5 +1,5 @@
-import Torrent from './torrent'
-import Director from './director'
+import Torrent from './torrent.js'
+import Director from './director.js'
 
 class Movie {
   id: number
