@@ -15,7 +15,7 @@ class Connection {
   constructor(user: string, key: string) {
     this.client = got.extend({
       prefixUrl: 'https://passthepopcorn.me/',
-      retry: 0,
+      retry: { limit: 0 },
       headers: {
         ApiUser: user,
         ApiKey: key,
@@ -30,7 +30,7 @@ class Connection {
       this.tokens += 1
     }
     if (this.queue.length > 0) {
-      const resolve = this.queue.shift()
+      const resolve = this.queue.shift()!
       this.tokens -= 1
       resolve(true)
     }
@@ -46,12 +46,10 @@ class Connection {
       throw Error('Ratelimit')
     }
 
-    let promiseResolve
     const promise = new Promise((resolve) => {
-      promiseResolve = resolve
+      this.queue.push(resolve)
     })
 
-    this.queue.push(promiseResolve)
     return promise
   }
 

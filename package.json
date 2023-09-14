@@ -6,6 +6,7 @@
   "license": "ISC",
   "main": "./lib/api.js",
   "types": "./lib/api.d.ts",
+  "type": "module",
   "files": [
     "lib"
   ],
@@ -21,11 +22,12 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "got": "^11.8.1"
+    "got": "^13.0.0"
   },
   "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
     "@types/eslint": "^8.44.2",
-    "@types/node": "^20.6.0",
+    "@types/node": "^18.17.15",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "dotenv": "^16.3.1",
