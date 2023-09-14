@@ -10,9 +10,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
-    "prepare": "npm run clean && npm run build"
+    "build": "npx tsc",
+    "clean": "npx rimraf lib",
+    "lint": "npx eslint",
+    "prepare": "npm run clean && npm run lint && npm run build"
   },
   "repository": {
     "type": "git",

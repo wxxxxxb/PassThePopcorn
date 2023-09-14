@@ -24,6 +24,7 @@ class Torrent {
   trumpable: Trumpable[]
   reports: Report[]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(movieId: number, torrentData: Record<string, any>) {
     this.id = Number(torrentData.Id)
     this.infoHash = torrentData.InfoHash
