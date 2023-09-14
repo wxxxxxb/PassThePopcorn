@@ -3,11 +3,13 @@ import Movie from './objects/movie'
 import Torrent from './objects/torrent'
 
 interface MovieSearchResult {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Movies: Array<Record<string, any>>
 }
 
 interface TorrentSearchResult {
   GroupId: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Torrents: Array<Record<string, any>>
 }
 

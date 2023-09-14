@@ -19,6 +19,7 @@ class Movie {
   // reasonsToTrump: string[]
   torrents: Torrent[]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(movieData: Record<string, any>) {
     this.id = Number(movieData.GroupId)
     this.title = movieData.Title || movieData.Name
@@ -38,6 +39,7 @@ class Movie {
     this.lastUploadDate =
       movieData.LastUploadTime && new Date(movieData.LastUploadTime)
     this.torrents = movieData.Torrents?.map(
+      // eslint-disable-next-line
       (torrent: Record<string, any>) => new Torrent(this.id, torrent),
     )
   }
