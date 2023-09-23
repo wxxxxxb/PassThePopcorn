@@ -38,8 +38,12 @@ class Api {
     )
   }
 
-  async searchByImdbId(id: string): Promise<Movie> {
-    return (await this.search(id))[0]
+  async searchByImdbId(id: string): Promise<Movie | null> {
+    const searchResult = await this.search(id)
+    if (searchResult[0]) {
+      return searchResult[0]
+    }
+    return null
   }
 
   async getMovieById(id: number): Promise<Movie | null> {
