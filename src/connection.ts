@@ -8,9 +8,9 @@ class Connection {
   client: Got
   capacity = 3
   tokens = 3
-  fillPerSecond = 0.5
+  fillPerSecond = 0.04 // ~ 150/(60*60) = 150 per hour
   queue: { (value: true): void }[] = []
-  maxQueueSize = 15
+  maxQueueSize = 60
 
   constructor(user: string, key: string) {
     this.client = got.extend({
@@ -39,7 +39,7 @@ class Connection {
   private consumeToken() {
     if (this.tokens > 0) {
       this.tokens -= 1
-      return true
+      return Promise.resolve(true)
     }
 
     if (this.queue.length >= this.maxQueueSize) {
